@@ -45,6 +45,9 @@ max_shift = params.max_shift;
 
 % Read first frame and crop target
 f1 = double(imread(sprintf('%s%05d.%s', params.file_path, 1, params.file_format)));
+if ndims(f1) == 3
+    f1 = rgb2gray(f1);
+end;
 f1 = f1(init_pos(1):init_pos(1)+wsize(1)-1, init_pos(2):init_pos(2)+wsize(2)-1);
 
 % Compute and smooth DF of target with different levels of blur

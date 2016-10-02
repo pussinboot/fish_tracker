@@ -10,7 +10,9 @@ open(mov)
 
 for i=1:size(data, 1)
     im = double(imread(sprintf('%s%05d.%s', file_path, i+start_fr, file_format)));
-    im = cat(3, im, im, im);
+    if ndims(im) ~= 3
+        im = cat(3, im, im, im);
+    end;
     % draw each of the rectangles
     im = uint8(drawRect(im, data(i, :), wsize, 'r', linewidth)); 
     if show_track

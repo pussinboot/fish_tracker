@@ -81,6 +81,7 @@ def print_params(params):
 
 test_file = './porco_rosso.mov'
 # convert_to_grayscale(test_file)
+# turns out i can just do this in matlab with one little modification...
 params = extract_movie(test_file)
 print_params(params)
 # params.file_path = './data/porco_rosso';
