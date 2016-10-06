@@ -1,0 +1,27 @@
+window_size = 5;
+p = 0.5;
+k = 2.5;
+
+i = 0;
+start_fr = 1;
+
+file_path = './data/img';
+file_format = 'png';
+
+% running gaussian average algorithm
+
+% initial mu, sigma
+mu_mat = image_intensity(i+start_fr,file_path,file_format);
+sig_t = movvar(mu_mat,5);
+% pcolor(sig_mat);
+% colorbar;
+
+% update step
+i = i + 1;
+I_t = image_intensity(i+start_fr,file_path,file_format);
+mu_t = p * I_t + (1 - p) * mu_t;
+d = (I_t - mu_t).^ 2;
+sig_t = d * p + (1 - p) * sig_t;
+
+fg_bg = abs(I_t - mu_t)./sig_t > k;
+pcolor(fg_bg)
