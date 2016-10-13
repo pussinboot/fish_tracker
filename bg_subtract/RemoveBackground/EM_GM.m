@@ -33,20 +33,20 @@ elseif nargin == 2,
     ltol = 0.1; maxiter = 1000; pflag = 0; Init = [];
     err_X = Verify_X(X);
     err_k = Verify_k(k);
-    if err_X | err_k, return; end
+    if err_X || err_k, return; end
 elseif nargin == 3,
     maxiter = 1000; pflag = 0; Init = [];
     err_X = Verify_X(X);
     err_k = Verify_k(k);
     [ltol,err_ltol] = Verify_ltol(ltol);    
-    if err_X | err_k | err_ltol, return; end
+    if err_X || err_k || err_ltol, return; end
 elseif nargin == 4,
     pflag = 0;  Init = [];
     err_X = Verify_X(X);
     err_k = Verify_k(k);
     [ltol,err_ltol] = Verify_ltol(ltol);    
     [maxiter,err_maxiter] = Verify_maxiter(maxiter);
-    if err_X | err_k | err_ltol | err_maxiter, return; end
+    if err_X || err_k || err_ltol || err_maxiter, return; end
 elseif nargin == 5,
      Init = [];
     err_X = Verify_X(X);
@@ -54,7 +54,7 @@ elseif nargin == 5,
     [ltol,err_ltol] = Verify_ltol(ltol);    
     [maxiter,err_maxiter] = Verify_maxiter(maxiter);
     [pflag,err_pflag] = Verify_pflag(pflag);
-    if err_X | err_k | err_ltol | err_maxiter | err_pflag, return; end
+    if err_X || err_k || err_ltol || err_maxiter || err_pflag, return; end
 elseif nargin == 6,
     err_X = Verify_X(X);
     err_k = Verify_k(k);
@@ -62,7 +62,7 @@ elseif nargin == 6,
     [maxiter,err_maxiter] = Verify_maxiter(maxiter);
     [pflag,err_pflag] = Verify_pflag(pflag);
     [Init,err_Init]=Verify_Init(Init);
-    if err_X | err_k | err_ltol | err_maxiter | err_pflag | err_Init, return; end
+    if err_X || err_k || err_ltol || err_maxiter || err_pflag || err_Init, return; end
 else
     disp('EM_GM must have 2 to 6 inputs!');
     return
@@ -82,7 +82,7 @@ Lo = 2*Ln;
 
 %%%% EM algorithm %%%%
 niter = 0;
-while (abs(100*(Ln-Lo)/Lo)>ltol) & (niter<=maxiter),
+while (abs(100*(Ln-Lo)/Lo)>ltol) && (niter<=maxiter),
     E = Expectation(X,k,W,M,V); % E-step    
     [W,M,V] = Maximization(X,k,E);  % M-step
     Lo = Ln;
